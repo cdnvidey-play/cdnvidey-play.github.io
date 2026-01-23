@@ -4,35 +4,53 @@
   <meta name="referrer" content="no-referrer-when-downgrade" />
   <title>Redirecting...</title>
   
-    <!-- Google tag (optional) -->
+  <!-- Google tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G03NHX4D9G"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    
+    // Inisialisasi GA
     gtag('js', new Date());
-    gtag('config', 'G-G03NHX4D9G');
+
+    // Config dasar + page info
+    gtag('config', 'G-G03NHX4D9G', {
+      page_title: document.title,
+      page_path: window.location.pathname,
+      send_page_view: true // otomatis kirim page view
+    });
+
+    // Contoh custom event untuk redirect
+    gtag('event', 'redirect_initiated', {
+      redirect_url: "https://vain-phrase.com/b/3GVF0/P.3hpevCbXmoVKJEZOD/0V2nNazdUF1dNJjeAp4VLYTvYE3kNfTDU/2SMsDLkc",
+      user_status: "guest",  // bisa diganti sesuai logika
+      timestamp: new Date().toISOString()
+    });
   </script>
 
-<style>
-body {
- margin: 0;
- height: 100vh;
- display: flex;
- align-items: center;
- justify-content: center;
- font-family: Arial, Helvetica, sans-serif;
- font-size: 16px;
- background: #ffffff;
- color: #333;
- opacity: .9;
-}
-</style>
-  
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      background: #ffffff;
+      color: #333;
+      opacity: 0.9;
+    }
+  </style>
+
 </head>
 <body>
-Preparing content… please wait
+  Preparing content… please wait
   <script>
-    window.location.href = "https://vain-phrase.com/b/3GVF0/P.3hpevCbXmoVKJEZOD/0V2nNazdUF1dNJjeAp4VLYTvYE3kNfTDU/2SMsDLkc";
+    // Redirect setelah 1 detik agar event GA tercatat
+    setTimeout(function() {
+      window.location.href = "https://vain-phrase.com/b/3GVF0/P.3hpevCbXmoVKJEZOD/0V2nNazdUF1dNJjeAp4VLYTvYE3kNfTDU/2SMsDLkc";
+    }, 1000);
   </script>
 </body>
 </html>
