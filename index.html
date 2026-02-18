@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -268,7 +266,7 @@ function upload(){
     },
     success: res => {
       if (res && res.id) {
-        location.href = 'https://cdn-videy.cloud/v/?id=' + res.id;
+        location.href = '/v/?id=' + res.id;
       } else {
         alert('Upload berhasil tapi response tidak valid');
         reset();
