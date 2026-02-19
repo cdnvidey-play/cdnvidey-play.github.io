@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Loading…</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+</head>
+
+<body>
+
+<script>
+/*
+  GitHub Pages SPA fallback
+  /abc123  →  /?abc123
+*/
+var path = location.pathname.replace(/^\/+|\/+$/g, '');
+
+if (path) {
+  location.replace('/?' + path);
+} else {
+  location.replace('/');
+}
+</script>
+
+</body>
+</html>
