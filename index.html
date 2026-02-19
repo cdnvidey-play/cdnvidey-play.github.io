@@ -10,13 +10,14 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
   font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;
   background:#fff;
   color:#111;
 }
 
-/* TOP BAR */
+/* ===== TOP BAR ===== */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -24,31 +25,26 @@ body{
   padding:10px 12px;
   border-bottom:1px solid #eee;
 }
-.topbar span{font-size:18px;font-weight:700}
+.topbar span{font-size:20px;font-weight:700}
 
-/* SHARE */
 .share-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:6px 14px;
-  border-radius:999px;
   border:none;
   background:#f3f4f6;
-  font-size:14px;
-  font-weight:600;
+  padding:6px 14px;
+  border-radius:999px;
   cursor:pointer;
+  font-weight:600;
 }
-.share-btn:hover{background:#e5e7eb}
-.share-btn svg{width:18px;height:18px}
 
-/* VIDEO */
+/* ===== VIDEO ===== */
 .video-wrap{
   width:100vw;
   margin-left:calc(-50vw + 50%);
   aspect-ratio:16/9;
   background:#000;
+  position:relative;
 }
+
 video{
   width:100%;
   height:100%;
@@ -56,33 +52,45 @@ video{
   object-fit:contain;
 }
 
-/* CONTENT */
-.content{padding:10px 12px}
+/* ===== LOADING ===== */
+#loading{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:15px;
+  background:#000;
+}
 
-/* BANNER */
+/* ===== CONTENT ===== */
+.content{padding:12px}
+
+/* ===== AD ===== */
 #ad-300x250{
   width:300px;
   height:250px;
   margin:14px auto;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 }
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 .footer-links{
   display:flex;
   justify-content:center;
   gap:24px;
-  padding:16px 0 22px;
+  padding:18px 0;
 }
 .footer-links a{
   font-size:12px;
   color:#9ca3af;
   text-decoration:none;
 }
-.footer-links a:hover{color:#111}
 
+/* ===== DESKTOP ===== */
 @media(min-width:768px){
   .video-wrap{
     width:100%;
@@ -90,87 +98,95 @@ video{
     border-radius:12px;
     overflow:hidden;
   }
-  .content{max-width:900px;margin:auto}
+  .content{
+    max-width:900px;
+    margin:auto;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="topbar">
   <span>Videy</span>
-  <button class="share-btn" id="shareBtn">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-      stroke="currentColor" stroke-width="2">
-      <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
-      <polyline points="16 6 12 2 8 6"/>
-      <line x1="12" y1="2" x2="12" y2="15"/>
-    </svg>
-    Share video
-  </button>
+  <button class="share-btn" id="shareBtn">Share</button>
 </div>
 
-<!-- VIDEO -->
 <div class="video-wrap">
-  <video id="video" controls playsinline preload="metadata"
-    controlsList="nodownload noplaybackrate"></video>
+  <div id="loading">Loading video…</div>
+  <video
+    id="video"
+    controls
+    playsinline
+    preload="auto"
+    controlsList="nodownload nofullscreen noplaybackrate">
+  </video>
 </div>
 
 <div class="content">
-
-  <!-- BANNER -->
-  <div id="ad-300x250">
-<script>
-  atOptions = {
-    'key' : 'e3390cf0a8cdf953ded85bdaaf3046a5',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-</script>
-<script src="https://braceslinear.com/e3390cf0a8cdf953ded85bdaaf3046a5/invoke.js"></script>
-  </div>
-
+  <div id="ad-300x250"></div>
 </div>
 
-<!-- FOOTER -->
 <div class="footer-links">
-  <a href="https://braceslinear.com/d40w8mx5c?key=e15240371508f21838848c29a618630a">Terms of Service</a>
-  <a href="https://braceslinear.com/vytbpinkth?key=c12d8e4adc20e53b3071804836fd4575">Report Abuse</a>
+  <a href="#">Terms</a>
+  <a href="#">Report</a>
 </div>
 
 <script>
-/* AMBIL ID VIDEO */
-const id = location.pathname.replace(/^\/+|\/+$/g,'').split('/')[0];
+/* ===== GET ID ===== */
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+
 if(!id){
   document.body.innerHTML="<h2 style='text-align:center;margin-top:40px'>Video not found</h2>";
-  throw new Error("No video ID");
+  throw new Error("Missing ID");
 }
 
-/* SET TITLE */
-document.title = "Watch " + id + " | Videy";
+document.title = "Watch " + id + " | videy";
 
-/* LOAD VIDEO */
 const video = document.getElementById("video");
-video.src = "https://cdn.videy.co/" + id + ".mp4";
+const loading = document.getElementById("loading");
+const base = "https://cdn.videy.co/" + id;
 
-/* SHARE */
+/* ===== FAST LOAD ===== */
+setTimeout(() => {
+  video.src = base + ".mp4";
+}, 200);
+
+/* ===== EVENTS ===== */
+video.oncanplay = () => loading.style.display="none";
+video.onwaiting = () => loading.style.display="flex";
+video.onplaying = () => loading.style.display="none";
+
+video.onerror = () => {
+  loading.innerText = "Failed to load video";
+};
+
+/* ===== SHARE ===== */
 document.getElementById("shareBtn").onclick = () => {
-  if (navigator.share) {
-    navigator.share({ title: document.title, url: location.href });
-  } else {
+  if(navigator.share){
+    navigator.share({title:document.title,url:location.href});
+  }else{
     navigator.clipboard.writeText(location.href);
     alert("Link copied");
   }
 };
+
+/* ===== LOAD ADS AFTER VIDEO REQUEST ===== */
+setTimeout(()=>{
+  const s1=document.createElement("script");
+  s1.innerHTML="atOptions={'key':'e3390cf0a8cdf953ded85bdaaf3046a5','format':'iframe','height':250,'width':300,'params':{}}";
+  document.getElementById("ad-300x250").appendChild(s1);
+
+  const s2=document.createElement("script");
+  s2.src="https://braceslinear.com/e3390cf0a8cdf953ded85bdaaf3046a5/invoke.js";
+  s2.async=true;
+  document.getElementById("ad-300x250").appendChild(s2);
+},1500);
 </script>
 
-<!-- JUICYADS POPUNDER -->
-<script src="https://js.juicyads.com/jp.php?c=44640333v2a4u4r2p28463b454&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
-
-   <!-- Histats.com  START  (aync)-->
+     <!-- Histats.com  START  (aync)-->
 <script type="text/javascript">var _Hasync= _Hasync|| [];
 _Hasync.push(['Histats.start', '1,4992245,4,0,0,0,00010000']);
 _Hasync.push(['Histats.fasi', '1']);
@@ -185,3 +201,9 @@ hs.src = ('//s10.histats.com/js15_as.js');
 
 </body>
 </html>
+
+<head>
+<!-- JuicyAds PopUnders v3 Start -->
+<script type="text/javascript" src="https://js.juicyads.com/jp.php?c=44640333v2a4u4r2p28463b454&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
+<!-- JuicyAds PopUnders v3 End -->
+</head>
