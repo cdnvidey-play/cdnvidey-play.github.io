@@ -2,290 +2,199 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CDN Videy Cloud - Free and Simple Video Hosting</title>
+<title>Watch Video</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer-when-downgrade" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="icon" href="https://videy.co/favicon.ico">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
-  font-family:'Inter',sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;
   background:#fff;
-  color:#0f172a;
-  -webkit-tap-highlight-color:transparent;
-  -webkit-font-smoothing:antialiased;
-}
-.page{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  padding-bottom:env(safe-area-inset-bottom);
+  color:#111;
 }
 
-/* HEADER */
+/* ===== TOP BAR ===== */
 .topbar{
-  padding:16px 18px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-}
-.logo{
-  font-weight:800;
-  font-size:1.2rem;
-}
-.top-upload{
-  background:#0f172a;
-  color:#fff;
-  border:none;
-  padding:8px 18px;
-  border-radius:999px;
-  font-size:.9rem;
-  font-weight:600;
-  min-height:48px;
+  justify-content:space-between;
+  padding:10px 12px;
+  border-bottom:1px solid #eee;
 }
 
-/* CENTER */
-.center{
-  flex:1;
-  padding:28px 16px 32px;
+.topbar span{
+  font-size:18px;
+  font-weight:700;
+}
+
+/* ===== SHARE BUTTON ===== */
+.share-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 14px;
+  border-radius:999px;
+  border:none;
+  background:#f3f4f6;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.share-btn:hover{background:#e5e7eb}
+
+.share-btn svg{
+  width:18px;
+  height:18px;
+}
+
+/* ===== VIDEO ===== */
+.video-wrap{
+  width:100vw;
+  margin-left:calc(-50vw + 50%);
+  aspect-ratio:16/9;
+  background:#000;
+}
+
+video{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:#000;
+}
+
+/* ===== CONTENT ===== */
+.content{
+  padding:10px 12px;
+}
+
+/* ===== BANNER ===== */
+#ad-300x250{
+  width:300px;
+  max-width:100%;
+  height:250px;
+  margin:14px auto 8px;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
-  text-align:center;
-}
-.center h1{
-  font-size:1.9rem;
-  font-weight:800;
-  line-height:1.15;
-}
-.center h1 span{color:#6b7280}
-.subtitle{
-  margin-top:10px;
-  color:#6b7280;
-  font-size:.95rem;
 }
 
-/* DROP */
-.drop-area{
-  width:100%;
-  max-width:420px;
-  margin-top:24px;
-  padding:26px 16px;
-  border:2px dashed #cbd5e1;
-  border-radius:16px;
-  color:#6b7280;
-  font-size:.95rem;
-  transition:all .25s ease;
-}
-.drop-area.drag{
-  border-color:#0f172a;
-  color:#0f172a;
-  background:#f8fafc;
-  transform:scale(1.02);
+/* ===== FOOTER ===== */
+.footer-links{
+  display:flex;
+  justify-content:center;
+  gap:24px;
+  padding:16px 0 22px;
 }
 
-/* BUTTON */
-.main-upload{
-  width:100%;
-  max-width:420px;
-  margin-top:18px;
-  padding:14px;
-  background:#0f172a;
-  color:#fff;
-  border:none;
-  border-radius:999px;
-  font-weight:600;
-  font-size:1rem;
-  min-height:48px;
-  transition:transform .15s ease, opacity .15s ease;
-}
-.main-upload:active{
-  transform:scale(.97);
-  opacity:.9;
-}
-
-/* PROGRESS */
-.progress-wrap{
-  width:100%;
-  max-width:420px;
-  height:6px;
-  background:#e5e7eb;
-  border-radius:999px;
-  margin-top:14px;
-  overflow:hidden;
-  display:none;
-}
-.progress-bar{
-  height:100%;
-  width:0%;
-  background:#0f172a;
-  transition:width .25s ease;
-}
-
-/* FOOTER */
-.footer{
-  padding:18px 16px 24px;
-  text-align:center;
-  font-size:.8rem;
-}
-.footer a{
-  color:#6b7280;
-  margin:0 6px;
+.footer-links a{
+  font-size:12px;
+  color:#9ca3af;
   text-decoration:none;
 }
 
-/* DESKTOP */
-@media (min-width:768px){
-  .topbar{padding:24px 32px}
-  .logo{font-size:1.4rem}
-  .center h1{font-size:3rem}
-  .main-upload,.drop-area,.progress-wrap{max-width:520px}
+.footer-links a:hover{color:#111}
+
+/* ===== DESKTOP ===== */
+@media(min-width:768px){
+  .video-wrap{
+    width:100%;
+    margin-left:0;
+    border-radius:12px;
+    overflow:hidden;
+  }
+
+  .content{
+    max-width:900px;
+    margin:auto;
+  }
+
+  .topbar span{font-size:22px}
 }
 </style>
 </head>
 
 <body>
-<div class="page">
 
-<header class="topbar">
-  <div class="logo">Videy</div>
-  <button class="top-upload" id="btnUploadTop">Upload</button>
-</header>
+<!-- ===== HEADER ===== -->
+<div class="topbar">
+  <span>Videy</span>
+  <button class="share-btn" id="shareBtn">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+      <polyline points="16 6 12 2 8 6"/>
+      <line x1="12" y1="2" x2="12" y2="15"/>
+    </svg>
+    Share video
+  </button>
+</div>
 
-<main class="center">
-  <h1>Upload your videos<br><span>and share</span></h1>
-  <p class="subtitle">Free and simple video hosting.</p>
+<!-- ===== VIDEO ===== -->
+<div class="video-wrap">
+  <video id="video" controls autoplay playsinline preload="metadata"
+    controlsList="nodownload nofullscreen noplaybackrate">
+    Your browser does not support the video tag.
+  </video>
+</div>
 
-  <div class="drop-area" id="dropArea">
-    Drag & Drop your video here or tap to select
+<div class="content">
+
+  <!-- ===== ADS ===== -->
+  <div id="ad-300x250">
+    <!-- iklan lo -->
   </div>
-
-  <button class="main-upload" id="btnUpload">Upload Video</button>
-
-  <input type="file" id="fileInput" accept="video/mp4,video/quicktime" hidden>
-
-  <div id="progressWrap">
-    <div id="progressBar"></div>
-  </div>
-</main>
-
-<footer class="footer">
-  <a href="#">Terms</a> · <a href="#">Report</a>
-</footer>
 
 </div>
 
+<!-- ===== FOOTER ===== -->
+<div class="footer-links">
+  <a href="#">Terms of Service</a>
+  <a href="#">Report Abuse</a>
+</div>
+
 <script>
-const fileInput = document.getElementById('fileInput');
-const dropArea  = document.getElementById('dropArea');
+/* ===== AMBIL ID DARI PATH ===== */
+let path = location.pathname.replace(/^\/+|\/+$/g,'');
+let id = path.split('/')[0];
 
-const btnUploadTop = document.getElementById('btnUploadTop');
-const btnUpload    = document.getElementById('btnUpload');
-
-let uploading = false;
-
-/* CLICK HANDLER */
-$('#btnUploadTop,#btnUpload,#dropArea').on('click', () => {
-  if (!uploading) fileInput.click();
-});
-
-/* FILE SELECT */
-fileInput.addEventListener('change', () => {
-  if (fileInput.files.length) upload();
-});
-
-/* DRAG & DROP */
-['dragenter','dragover'].forEach(ev => {
-  dropArea.addEventListener(ev, e => {
-    e.preventDefault();
-    dropArea.classList.add('drag');
-  });
-});
-
-['dragleave','drop'].forEach(ev => {
-  dropArea.addEventListener(ev, e => {
-    e.preventDefault();
-    dropArea.classList.remove('drag');
-
-    if (ev === 'drop' && e.dataTransfer.files.length) {
-      fileInput.files = e.dataTransfer.files;
-      upload();
-    }
-  });
-});
-
-/* UPLOAD FUNCTION */
-function upload(){
-  if (uploading) return;
-
-  const file = fileInput.files[0];
-  if (!file) return;
-
-  if (!['video/mp4','video/quicktime'].includes(file.type)) {
-    alert('Format video tidak didukung (MP4 / MOV)');
-    return;
-  }
-
-  if (file.size > 100 * 1024 * 1024) {
-    alert('Ukuran maksimal 100MB');
-    return;
-  }
-
-  uploading = true;
-
-  const bar  = $('#progressBar');
-  const wrap = $('#progressWrap');
-
-  wrap.show();
-  bar.css('width','0%');
-
-  const fd = new FormData();
-  fd.append('file', file);
-
-  $.ajax({
-    url: 'https://videy.co/api/upload',
-    method: 'POST',
-    data: fd,
-    processData: false,
-    contentType: false,
-    xhr: function () {
-      const xhr = new XMLHttpRequest();
-      xhr.upload.onprogress = e => {
-        if (e.lengthComputable) {
-          const percent = Math.round((e.loaded / e.total) * 100);
-          bar.css('width', percent + '%');
-        }
-      };
-      return xhr;
-    },
-    success: res => {
-      if (res && res.id) {
-        location.href = '/v/?id=' + res.id;
-      } else {
-        alert('Upload berhasil tapi response tidak valid');
-        reset();
-      }
-    },
-    error: () => {
-      alert('Upload gagal, coba lagi');
-      reset();
-    }
-  });
+if(!id){
+  document.body.innerHTML =
+    "<h2 style='text-align:center;margin-top:40px'>Video not found</h2>";
+  throw new Error("Missing ID");
 }
 
-/* RESET STATE */
-function reset(){
-  uploading = false;
-  $('#progressWrap').hide();
-  $('#progressBar').css('width','0%');
-  fileInput.value = '';
-}
+/* title ikut ID */
+document.title = "Watch " + id + " | videy";
+
+const video = document.getElementById("video");
+const base = "https://cdn.videy.co/" + id;
+
+video.src = base + ".mp4";
+
+video.onerror = () => {
+  if(!video.dataset.fallback){
+    video.dataset.fallback = "1";
+    video.src = base + ".mov";
+  }
+};
+
+/* ===== SHARE ===== */
+document.getElementById("shareBtn").onclick = () => {
+  if (navigator.share) {
+    navigator.share({
+      title: document.title,
+      url: location.href
+    });
+  } else {
+    navigator.clipboard.writeText(location.href);
+    alert("Link copied");
+  }
+};
 </script>
 
 </body>
