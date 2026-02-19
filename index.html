@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,7 +89,7 @@ video{
   bottom:0;
   left:0;
   width:100%;
-  height:50px;
+  height:3px;
   background:#fff;
   z-index:9999;
   display:flex;
@@ -148,23 +147,9 @@ video{
     controlsList="nodownload nofullscreen noplaybackrate">
   </video>
 
-  <div id="playOverlay">▶ Tap to play</div>
-
 </div>
 
 <div class="content">
-  <div id="sticky-ad">
-<script>
-  atOptions = {
-    'key' : '23c551f45cbc60bc91996534cd44fb6c',
-    'format' : 'iframe',
-    'height' : 50,
-    'width' : 320,
-    'params' : {}
-  };
-</script>
-<script src="https://seemingservantreap.com/23c551f45cbc60bc91996534cd44fb6c/invoke.js"></script>
-  </div>
 </div>
 
 <div class="footer-links">
@@ -198,27 +183,6 @@ video.onerror = () => {
   }
 };
 
-/* ===== FIRST CLICK POP (SAFE) ===== */
-const POP_URL = "https://seemingservantreap.com/buf5u9h9v?key=8b8af544e73ca2306c648d61c6e6ff6f";
-const KEY = "videy_pop_fired";
-const EXPIRE = 86400000;
-
-function canFire(){
-  const last = localStorage.getItem(KEY);
-  return !last || (Date.now() - last) > EXPIRE;
-}
-
-overlay.onclick = () => {
-  video.play();
-  overlay.style.display = "none";
-  if(canFire()){
-    window.open(POP_URL, "_blank");
-    localStorage.setItem(KEY, Date.now());
-  }
-};
-
-video.onplay = () => overlay.style.display = "none";
-
 /* ===== SHARE ===== */
 document.getElementById("shareBtn").onclick = () => {
   if (navigator.share) {
@@ -232,3 +196,8 @@ document.getElementById("shareBtn").onclick = () => {
 
 </body>
 </html>
+<header>
+<!-- JuicyAds PopUnders v3 Start -->
+<script type="text/javascript" src="https://js.juicyads.com/jp.php?c=44640333v2a4u4r2p28463b454&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
+<!-- JuicyAds PopUnders v3 End -->
+</header>
