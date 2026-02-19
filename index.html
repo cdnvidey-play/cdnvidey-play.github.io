@@ -3,100 +3,159 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Watch video | Videy</title>
+<title>Watch Video</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+<meta name="juicyads-site-verification" content="906c53b86a2c8ed44d2b99c9f91bd341">
 <link rel="icon" href="https://videy.co/favicon.ico">
 
 <style>
+
+/* ===== RESET ===== */
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
-  font-family: Arial, sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;
   background:#fff;
   color:#111;
 }
-header{
-  padding:14px 16px;
-  border-bottom:1px solid #eee;
+
+/* ===== TOP BAR ===== */
+.topbar{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  padding:10px 12px;
+  border-bottom:1px solid #eee;
 }
-header b{font-size:22px}
-main{
-  max-width:900px;
-  margin:20px auto 80px;
-  padding:0 14px;
+
+.topbar span{
+  font-size:18px;
+  font-weight:700;
 }
-.video-wrap{
-  background:#000;
-  border-radius:12px;
-  overflow:hidden;
-}
-video{
-  width:100%;
-  height:auto;
-  display:block;
-  background:#000;
-}
-.share{
-  margin-top:14px;
-  text-align:center;
-}
-.share button{
-  padding:8px 18px;
-  border-radius:20px;
+
+/* ===== SHARE BUTTON ===== */
+.share-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 14px;
+  border-radius:999px;
   border:none;
+  background:#f3f4f6;
+  font-size:14px;
   font-weight:600;
   cursor:pointer;
 }
-footer{
-  text-align:center;
-  font-size:12px;
-  color:#999;
-  margin-top:30px;
+
+.share-btn:hover{
+  background:#e5e7eb;
 }
-/* ===== STICKY BANNER ===== */
-#sticky-banner{
-  position:fixed;
-  bottom:0;
-  left:0;
+
+.share-btn svg{
+  width:18px;
+  height:18px;
+}
+
+/* ===== VIDEO FULL WIDTH ===== */
+.video-wrap{
+  width:100vw;
+  margin-left:calc(-50vw + 50%);
+  aspect-ratio:16/9;
+  background:#000;
+}
+
+video{
   width:100%;
-  background:#fff;
-  z-index:9999;
+  height:100%;
+  object-fit:contain;
+  background:#000;
+}
+
+/* ===== CONTENT ===== */
+.content{
+  padding:10px 12px;
+}
+
+/* ===== SINGLE BANNER ===== */
+#ad-300x250{
+  width:300px;
+  max-width:100%;
+  height:250px;
+  margin:14px auto 8px;
   display:flex;
   justify-content:center;
-  padding:4px 0;
-  box-shadow:0 -2px 10px rgba(0,0,0,.15);
+  align-items:center;
 }
+
+/* ===== FOOTER ===== */
+.footer-links{
+  display:flex;
+  justify-content:center;
+  gap:24px;
+  padding:16px 0 22px;
+}
+
+.footer-links a{
+  font-size:12px;
+  color:#9ca3af;
+  text-decoration:none;
+}
+
+.footer-links a:hover{
+  color:#111;
+}
+
+/* ===== DESKTOP ===== */
 @media(min-width:768px){
-  #sticky-banner{display:none}
+  .video-wrap{
+    width:100%;
+    margin-left:0;
+    border-radius:12px;
+    overflow:hidden;
+  }
+
+  .content{
+    max-width:900px;
+    margin:auto;
+  }
+
+  .topbar span{
+    font-size:22px;
+  }
 }
+
 </style>
-<script src="https://petsrulefondness.com/42/4e/96/424e968fa6035ade5ff1d9b05a8c1e75.js"></script>
 </head>
 
 <body>
 
-<header>
-  <b>videy</b>
-  <span id="video-id">ID</span>
-</header>
+<!-- ===== HEADER ===== -->
+<div class="topbar">
+  <span>Videy</span>
 
-<main>
-  <div class="video-wrap">
-    <video id="video" controls playsinline preload="metadata"
-      controlsList="nodownload nofullscreen noplaybackrate">
-      Your browser does not support video.
-    </video>
-  </div>
+  <button class="share-btn" id="shareBtn">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+      <polyline points="16 6 12 2 8 6"/>
+      <line x1="12" y1="2" x2="12" y2="15"/>
+    </svg>
+    Share video
+  </button>
+</div>
 
-  <div class="share">
-    <button id="shareBtn">⬆ Share video</button>
-  </div>
-</main>
+<!-- ===== VIDEO ===== -->
+<div class="video-wrap">
+  <video id="video" controls autoplay playsinline preload="metadata" controlsList="nodownload nofullscreen noplaybackrate">
+    Your browser does not support the video tag.
+  </video>
+</div>
 
-<!-- ===== STICKY BANNER ===== -->
-<div id="sticky-banner">
+<div class="content">
+
+  <!-- ===== BANNER 300x250 ===== -->
+  <div id="ad-300x250">
 <script>
   atOptions = {
     'key' : 'e3390cf0a8cdf953ded85bdaaf3046a5',
@@ -107,50 +166,51 @@ footer{
   };
 </script>
 <script src="https://braceslinear.com/e3390cf0a8cdf953ded85bdaaf3046a5/invoke.js"></script>
+  </div>
+
 </div>
 
-<!-- ===== MAIN SCRIPT ===== -->
+<!-- ===== FOOTER ===== -->
+<div class="footer-links">
+  <a href="https://braceslinear.com/d40w8mx5c?key=e15240371508f21838848c29a618630a">Terms of Service</a>
+  <a href="https://braceslinear.com/vytbpinkth?key=c12d8e4adc20e53b3071804836fd4575">Report Abuse</a>
+</div>
+
 <script>
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
 
 if(!id){
   document.body.innerHTML =
-    '<h2 style="text-align:center;margin-top:40px">Missing video ID</h2>';
-  throw new Error("ID missing");
+    "<h2 style='text-align:center;margin-top:40px'>Video not found</h2>";
+  throw new Error("Missing ID");
 }
 
-/* expose ID */
-window.VIDEO_ID = id;
+// title ikut ID (analytics kebaca)
+document.title = "Watch " + id + " | videy";
 
-/* update UI */
-document.getElementById("video-id").textContent = id;
-document.title = "Watch " + id + " | Videy";
-
-/* load video */
 const video = document.getElementById("video");
 const base = "https://cdn.videy.co/" + id;
+
 video.src = base + ".mp4";
 
 video.onerror = () => {
-  if(!video.dataset.triedMov){
-    video.dataset.triedMov = "1";
+  if(!video.dataset.fallback){
+    video.dataset.fallback = "1";
     video.src = base + ".mov";
-  } else {
-    alert("Video tidak dapat diputar");
   }
 };
 
-/* share */
+/* ===== SHARE LOGIC ===== */
 document.getElementById("shareBtn").onclick = () => {
-  if(navigator.share){
+  if (navigator.share) {
     navigator.share({
       title: document.title,
       url: location.href
     });
   } else {
     navigator.clipboard.writeText(location.href);
-    alert("Link disalin");
+    alert("Link copied");
   }
 };
 </script>
