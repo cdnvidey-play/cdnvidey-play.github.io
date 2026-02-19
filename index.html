@@ -181,35 +181,31 @@ if(!id){
 document.title = "Watch " + id + " | videy";
 
 const video = document.getElementById("video");
-const base = "https://cdn.videy.co/" + id;
+const overlay = document.getElementById("playOverlay");
 
+const base = "https://cdn.videy.co/" + id;
 video.src = base + ".mp4";
 
+// fallback .mov
 video.onerror = () => {
   if(!video.dataset.fallback){
     video.dataset.fallback = "1";
     video.src = base + ".mov";
   }
 };
-</script>
-<script>
-const video = document.getElementById("video");
-const overlay = document.getElementById("playOverlay");
 
+// klik overlay → play
 overlay.onclick = () => {
   overlay.style.display = "none";
   video.play().catch(()=>{});
 };
 
+// kalau user play manual
 video.addEventListener("play", ()=>{
   overlay.style.display = "none";
 });
 </script>
 
+<script type="text/javascript" src="https://js.juicyads.com/jp.php?c=44640333v2a4u4r2p28463b454&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
 </body>
 </html>
-<header>
-<!-- JuicyAds PopUnders v3 Start -->
-<script type="text/javascript" src="https://js.juicyads.com/jp.php?c=44640333v2a4u4r2p28463b454&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
-<!-- JuicyAds PopUnders v3 End -->
-</header>
