@@ -147,9 +147,8 @@ video{
 
 <!-- ===== VIDEO ===== -->
 <div class="video-wrap">
-  <video id="video" controls autoplay playsinline preload="metadata" controlsList="nodownload nofullscreen noplaybackrate">
-    Your browser does not support the video tag.
-  </video>
+  <video id="video" controls playsinline preload="metadata"
+    controlsList="nodownload noplaybackrate"></video>
 </div>
 
 <div class="content">
@@ -177,29 +176,23 @@ video{
 </div>
 
 <script>
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
+/* ===== ambil ID ===== */
+const id = location.pathname.replace(/^\/+|\/+$/g,'').split('/')[0];
+if(!id){document.body.innerHTML="<h2 style='text-align:center;margin-top:40px'>Video not found</h2>";throw 0;}
+document.title = "Watch "+id+" | Videy";
 
-if(!id){
-  document.body.innerHTML =
-    "<h2 style='text-align:center;margin-top:40px'>Video not found</h2>";
-  throw new Error("Missing ID");
-}
+/* ===== video ===== */
+const video = document.getElementById("video");
+video.src = "https://cdn.videy.co/"+id+".mp4";
+
+/* ===== share ===== */
+shareBtn.onclick=()=>{
+  navigator.share ? navigator.share({title:document.title,url:location.href}).catch(()=>{})
+  : (navigator.clipboard.writeText(location.href),alert("Link copied"));
+};
 
 // title ikut ID (analytics kebaca)
-document.title = "Watch " + id + " | videy";
-
-const video = document.getElementById("video");
-const base = "https://cdn.videy.co/" + id;
-
-video.src = base + ".mp4";
-
-video.onerror = () => {
-  if(!video.dataset.fallback){
-    video.dataset.fallback = "1";
-    video.src = base + ".mov";
-  }
-};
+document.title = "Watch " + id + " | videy";}};
 
 /* ===== SHARE LOGIC ===== */
 document.getElementById("shareBtn").onclick = () => {
