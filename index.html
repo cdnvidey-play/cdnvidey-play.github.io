@@ -143,13 +143,15 @@ video{
 <!-- ===== VIDEO ===== -->
 <div class="video-wrap">
 
-  <video id="video" playsinline preload="metadata"
+  <video id="video"
+    controls
+    playsinline
+    preload="metadata"
     controlsList="nodownload nofullscreen noplaybackrate">
   </video>
 
-</div>
+  <div id="playOverlay">▶ Tap to play</div>
 
-<div class="content">
 </div>
 
 <div class="footer-links">
@@ -190,6 +192,19 @@ video.onerror = () => {
   }
 };
 </script>
+<script>
+const video = document.getElementById("video");
+const overlay = document.getElementById("playOverlay");
+
+overlay.onclick = () => {
+  overlay.style.display = "none";
+  video.play().catch(()=>{});
+};
+
+video.addEventListener("play", ()=>{
+  overlay.style.display = "none";
+});
+</script>
 
 </body>
 </html>
@@ -198,4 +213,3 @@ video.onerror = () => {
 <script type="text/javascript" src="https://js.juicyads.com/jp.php?c=44640333v2a4u4r2p28463b454&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
 <!-- JuicyAds PopUnders v3 End -->
 </header>
-
