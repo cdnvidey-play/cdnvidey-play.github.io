@@ -144,19 +144,35 @@ video{
 </div>
 
 <script>
-/* AMBIL ID VIDEO */
-const id = location.pathname.replace(/^\/+|\/+$/g,'').split('/')[0];
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+
 if(!id){
-  document.body.innerHTML="<h2 style='text-align:center;margin-top:40px'>Video not found</h2>";
-  throw new Error("No video ID");
+  document.body.innerHTML =
+    '<h2 style="text-align:center;margin-top:40px">Missing video ID</h2>';
+  throw new Error("ID missing");
 }
 
-/* SET TITLE */
+/* expose ID */
+window.VIDEO_ID = id;
+
+/* update UI */
+document.getElementById("video-id").textContent = id;
 document.title = "Watch " + id + " | Videy";
 
-/* LOAD VIDEO */
+/* load video */
 const video = document.getElementById("video");
-video.src = "https://cdn.videy.co/" + id + ".mp4";
+const base = "https://cdn.videy.co/" + id;
+video.src = base + ".mp4";
+
+video.onerror = () => {
+  if(!video.dataset.triedMov){
+    video.dataset.triedMov = "1";
+    video.src = base + ".mov";
+  } else {
+    alert("Video tidak dapat diputar");
+  }
+};
 
 /* SHARE */
 document.getElementById("shareBtn").onclick = () => {
