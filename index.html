@@ -139,7 +139,9 @@ video{
   <span>Videy</span>
   <button class="share-btn" id="shareBtn">Share video</button>
 </div>
-
+<header>
+<script type="text/javascript" src="https://js.juicyads.com/jp.php?c=44640333v2a4u4r2p28463b454&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
+</header>
 <!-- ===== VIDEO ===== -->
 <div class="video-wrap">
 
@@ -186,6 +188,24 @@ const overlay = document.getElementById("playOverlay");
 const base = "https://cdn.videy.co/" + id;
 video.src = base + ".mp4";
 
+const shareBtn = document.getElementById("shareBtn");
+
+shareBtn.onclick = () => {
+  const url = location.href;
+  const title = document.title;
+
+  if (navigator.share) {
+    navigator.share({
+      title: title,
+      url: url
+    }).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(url).then(()=>{
+      alert("Link copied!");
+    });
+  }
+};
+
 // fallback .mov
 video.onerror = () => {
   if(!video.dataset.fallback){
@@ -218,7 +238,5 @@ hs.src = ('//s10.histats.com/js15_as.js');
 })();</script>
 <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4992245&101" alt="" border="0"></a></noscript>
 <!-- Histats.com  END  -->
-
-<script type="text/javascript" src="https://js.juicyads.com/jp.php?c=44640333v2a4u4r2p28463b454&u=https%3A%2F%2Fwww.juicyads.rocks"></script>
 </body>
 </html>
