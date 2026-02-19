@@ -134,12 +134,17 @@ video{
 </div>
 
 <script>
-/* ===== GET ID ===== */
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
+/* ===== GET ID (QUERY / PATH) ===== */
+let id = new URLSearchParams(location.search).get("id");
 
 if(!id){
-  document.body.innerHTML="<h2 style='text-align:center;margin-top:40px'>Video not found</h2>";
+  const path = location.pathname.split("/").filter(Boolean);
+  id = path[path.length - 1];
+}
+
+if(!id){
+  document.body.innerHTML =
+    "<h2 style='text-align:center;margin-top:40px'>Video not found</h2>";
   throw new Error("Missing ID");
 }
 
@@ -149,18 +154,14 @@ const video = document.getElementById("video");
 const loading = document.getElementById("loading");
 const base = "https://cdn.videy.co/" + id;
 
-/* ===== FAST LOAD ===== */
-setTimeout(() => {
+setTimeout(()=>{
   video.src = base + ".mp4";
-}, 200);
+},200);
 
-/* ===== EVENTS ===== */
-video.oncanplay = () => loading.style.display="none";
-video.onwaiting = () => loading.style.display="flex";
-video.onplaying = () => loading.style.display="none";
-
-video.onerror = () => {
-  loading.innerText = "Failed to load video";
+video.oncanplay = ()=>loading.style.display="none";
+video.onwaiting = ()=>loading.style.display="flex";
+video.onplaying = ()=>loading.style.display="none";
+video.onerror = ()=>loading.innerText="Failed to load video";
 };
 
 /* ===== SHARE ===== */
