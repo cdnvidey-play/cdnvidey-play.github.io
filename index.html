@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -144,35 +145,19 @@ video{
 </div>
 
 <script>
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
-
+/* AMBIL ID VIDEO */
+const id = location.pathname.replace(/^\/+|\/+$/g,'').split('/')[0];
 if(!id){
-  document.body.innerHTML =
-    '<h2 style="text-align:center;margin-top:40px">Missing video ID</h2>';
-  throw new Error("ID missing");
+  document.body.innerHTML="<h2 style='text-align:center;margin-top:40px'>Video not found</h2>";
+  throw new Error("No video ID");
 }
 
-/* expose ID */
-window.VIDEO_ID = id;
-
-/* update UI */
-document.getElementById("video-id").textContent = id;
+/* SET TITLE */
 document.title = "Watch " + id + " | Videy";
 
-/* load video */
+/* LOAD VIDEO */
 const video = document.getElementById("video");
-const base = "https://cdn.videy.co/" + id;
-video.src = base + ".mp4";
-
-video.onerror = () => {
-  if(!video.dataset.triedMov){
-    video.dataset.triedMov = "1";
-    video.src = base + ".mov";
-  } else {
-    alert("Video tidak dapat diputar");
-  }
-};
+video.src = "https://cdn.videy.co/" + id + ".mp4";
 
 /* SHARE */
 document.getElementById("shareBtn").onclick = () => {
