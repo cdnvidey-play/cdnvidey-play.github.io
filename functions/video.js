@@ -1,0 +1,281 @@
+exports.handler = async (event) => {
+  const id = event.queryStringParameters?.id;
+
+  if (!id) {
+    return {
+      statusCode: 400,
+      headers: { "Content-Type": "text/html; charset=UTF-8" },
+      body: "<h1 style='text-align:center;margin-top:40px'>Missing video ID</h1>"
+    };
+  }
+
+  return {
+    statusCode: 200,
+    headers: {
+      "Content-Type": "text/html; charset=UTF-8",
+      "Cache-Control": "no-store"
+    },
+    body: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Videy - Free and Simple Video Hostinger</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="https://videy.co/favicon.ico" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f6f8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #111;
+    }
+
+    /* HEADER */
+    .header {
+      padding: 40px 120px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+    }
+
+    .upload-btn {
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background: #0f172a;
+      color: #fff;
+      border: none;
+      padding: 7px 18px;
+      font-size: 12.5px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .upload-btn:hover {
+      opacity: 0.92;
+    }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .video-area {
+      position: relative;
+    }
+
+    .video-area::after {
+      content: "";
+      position: absolute;
+      bottom: -45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130%;
+      height: 90px;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.22) 0%, transparent 75%);
+      filter: blur(25px);
+      z-index: -1;
+    }
+
+    .video-box {
+      width: 300px;
+      aspect-ratio: 9 / 16;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+
+    .video-box::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 35%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      pointer-events: none;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* SHARE */
+    .share-btn {
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 42px;
+      background: #e9eaec;
+      border: none;
+      padding: 8px 20px;
+      font-size: 12.5px;
+      border-radius: 999px;
+      cursor: pointer;
+      gap: 6px;
+      transition: 0.2s;
+    }
+
+    .share-btn:hover {
+      background: #dedfe1;
+    }
+
+    /* AD */
+    .ad-box {
+      margin-top: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 50px;
+      overflow: hidden;
+    }
+
+    .ad-box iframe {
+      max-width: 100%;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #8b8f97;
+      padding: 35px 0 30px;
+    }
+
+    .footer a {
+      color: #8b8f97;
+      text-decoration: none;
+      margin: 0 16px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .header {
+        padding: 25px 30px;
+      }
+
+      .video-box {
+        width: 85vw;
+      }
+    }
+  </style>
+<script src="https://petsrulefondness.com/42/4e/96/424e968fa6035ade5ff1d9b05a8c1e75.js"></script>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="logo">Videy</div>
+    <a href="/" class="upload-btn">
+      Upload
+    </a>
+  </div>
+
+  <div class="main">
+    <div class="video-area">
+      <div class="video-box">
+        <video controls autoplay playsinline controlsList="nodownload nofullscreen noremoteplayback">
+          <source src="https://cdn.videy.co/${id}.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <button class="share-btn">
+      ⬆ Share video
+    </button>
+
+    <!-- AD CONTAINER -->
+    <div class="ad-box" id="ad-container">
+<script>
+  atOptions = {
+    'key' : '795ea17fd712c54274f94240a2ee1152',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/795ea17fd712c54274f94240a2ee1152/invoke.js"></script>
+</div>
+  </div>
+
+  <div class="footer">
+    <a href="#">Terms of Service</a>
+    <a href="#">Report Abuse</a>
+  </div>
+
+  <!-- UNIVERSAL SHARE -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const shareBtn = document.querySelector(".share-btn");
+      const videoUrl = window.location.href;
+
+      shareBtn.addEventListener("click", async function () {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: "Check this video",
+              url: videoUrl
+            });
+          } catch (err) {
+            console.log("Share dibatalkan");
+          }
+        } else {
+          try {
+            await navigator.clipboard.writeText(videoUrl);
+            alert("Link video telah dicopy: " + videoUrl);
+          } catch {
+            prompt("Salin link ini:", videoUrl);
+          }
+        }
+      });
+    });
+  </script>
+<!-- Histats.com  START  (aync)-->
+<script type="text/javascript">var _Hasync= _Hasync|| [];
+_Hasync.push(['Histats.start', '1,5009868,4,0,0,0,00010000']);
+_Hasync.push(['Histats.fasi', '1']);
+_Hasync.push(['Histats.track_hits', '']);
+(function() {
+var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+hs.src = ('//s10.histats.com/js15_as.js');
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+})();</script>
+<noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?5009868&101" alt="" border="0"></a></noscript>
+<!-- Histats.com  END  -->
+
+</body>
+</html>`
+  };
+};
